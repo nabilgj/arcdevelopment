@@ -144,16 +144,13 @@ const Header = props => {
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 
-    
-    const [value, setValue] = useState(0);
     const [anchorEl, setAnchorEl] = useState(null);
     const [openMenu, setOpenMenu] = useState(false);
-    const [selectedIndex, setSelectedIndex] = useState(0);
     const [openDrawer, setOpenDrawer] = useState(false);
 
     // for passing index of current tab item being clicked
     const handleChanged = (e, newValue) => {
-        setValue(newValue);
+        props.setValue(newValue);
     };
 
     // for getting current element by mouseover on service tab 
@@ -172,7 +169,7 @@ const Header = props => {
     const handleMenuItemClicked = (e, index) => {
         setAnchorEl(null);
         setOpenMenu(false);
-        setSelectedIndex(index);
+        props.setSelectedIndex(index);
     };
 
     const menuOptions = [
@@ -195,10 +192,10 @@ const Header = props => {
         [...menuOptions, ...routes].forEach(route => {
             switch (window.location.pathname) {
                 case `${route.link}`:
-                    if(value !== route.activeIndex) {
-                        setValue(route.activeIndex);
-                        if(route.selectedIndex && route.selectedIndex !== selectedIndex) {
-                            setSelectedIndex(route.selectedIndex)
+                    if(props.value !== route.activeIndex) {
+                        props.setValue(route.activeIndex);
+                        if(route.selectedIndex && route.selectedIndex !== props.selectedIndex) {
+                            props.setSelectedIndex(route.selectedIndex)
                         }
                     }
                     break;
@@ -207,12 +204,12 @@ const Header = props => {
                     break;
             }
         });
-    }, [value, menuOptions, selectedIndex, routes]);
+    }, [props.value, menuOptions, props.selectedIndex, routes, props]);
 
     const tabs = (
         <React.Fragment>
             <Tabs 
-                value={value}
+                value={props.value}
                 onChange={handleChanged}
                 className={classes.tabContainer}
                 indicatorColor="secondary">
@@ -257,8 +254,8 @@ const Header = props => {
                             component={Link}
                             to={option.link}
                             classes={{ root: classes.menuItem }}
-                            onClick={(e) => {handleMenuItemClicked(e, index); setValue(1); handleClosed()}}
-                            selected={index === selectedIndex && value === 1}>
+                            onClick={(e) => {handleMenuItemClicked(e, index); props.setValue(1); handleClosed()}}
+                            selected={index === props.selectedIndex && props.value === 1}>
                             {option.name}
                         </MenuItem>
                     );
@@ -284,12 +281,12 @@ const Header = props => {
                     {routes.map(route => (
                         <ListItem
                             key={`${route}${route.activeIndex}`}
-                            onClick={() => {setOpenDrawer(false); setValue(route.activeIndex)}}
+                            onClick={() => {setOpenDrawer(false); props.setValue(route.activeIndex)}}
                             divider
                             button
                             component={Link}
                             to={route.link}
-                            selected={value === route.activeIndex}
+                            selected={ props.value === route.activeIndex }
                             classes={{ selected: classes.drawerItemSelected }}>
                             <ListItemText
                                 disableTypography
@@ -302,11 +299,11 @@ const Header = props => {
                     <ListItem
                         divider
                         button
-                        onClick={() => {setOpenDrawer(false); setValue(5)}}
+                        onClick={() => {setOpenDrawer(false); props.setValue(5)}}
                         component={Link}
                         to="/estimate"
                         classes={{ root: classes.drawerItemEstimate, selected: classes.drawerItemSelected}}
-                        selected={value === 5}>
+                        selected={ props.value === 5 }>
 
                         <ListItemText 
                             disableTypography
@@ -338,7 +335,7 @@ const Header = props => {
                 <AppBar position="fixed" className={classes.appbar}>
                     <Toolbar disableGutters>
                         <Button
-                            onClick={() => setValue(0)}
+                            onClick={() => props.setValue(0)}
                             component={Link}
                             to="/"
                             disableRipple
