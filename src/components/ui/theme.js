@@ -7,7 +7,7 @@ const theme = createMuiTheme({
     palette: {
         common: {
             blue: `${arcBlue}`,
-            pink: `${arcCGreen}`
+            SeaGreen: `${arcCGreen}`
         },
         primary: {
             main: `${arcBlue}`
@@ -21,11 +21,11 @@ const theme = createMuiTheme({
             fontFamily: "Raleway",
             textTransform: 'none',
             fontWeight: 700,
-            fontSize: '1rem'
+            fontSize: '.8rem'
         },
         estimate: {
             fontFamily: "Pacifico",
-            fontSize: '1rem',
+            fontSize: '.8rem',
             textTransform: 'none',
             color: 'white'
         }
