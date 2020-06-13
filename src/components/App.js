@@ -8,6 +8,7 @@ import theme from './ui/theme';
 // custom components
 import Header from './ui/Header';
 import Footer from './ui/footer';
+import LandingPage from './LandingPage';
 
 const App = () => {
 
@@ -25,11 +26,18 @@ const App = () => {
             setValue={setValue}
             selectedIndex={selectedIndex}
             setSelectedIndex={setSelectedIndex} />
+
           <Switch>
             <Route 
               exact
               path="/" 
-              component={() => <div style={{ height: '2000px'}}> Home </div>} />
+              render={(props) => <LandingPage 
+                {...props}
+                value={value} 
+                setValue={setValue}
+                selectedIndex={selectedIndex}
+                setSelectedIndex={setSelectedIndex}
+              />} />
 
             <Route 
               exact 

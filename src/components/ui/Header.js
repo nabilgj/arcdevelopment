@@ -86,7 +86,10 @@ const useStyles = makeStyles(theme => ({
         borderRadius: "50px",
         marginLeft: "50px",
         marginRight: "25px",
-        height: '45px'
+        height: '45px',
+        "&:hover": {
+            backgroundColor: theme.palette.secondary.dark
+        }
     },
     menu: {
         backgroundColor: theme.palette.common.blue,
@@ -175,7 +178,7 @@ const Header = props => {
     const menuOptions = [
         { name: 'Services', link: "/services", activeIndex: 1, selectedIndex: 0 },
         { name: 'Custom Software Development', link: "/customsoftware", activeIndex: 1, selectedIndex: 1 },
-        { name: 'Mobile App Development', link: "/mobileapps", activeIndex: 1, selectedIndex: 2 },
+        { name: 'ios/andriod App Development', link: "/mobileapps", activeIndex: 1, selectedIndex: 2 },
         { name: 'Website Development', link: "/websites", activeIndex: 1, selectedIndex: 3 }
     ];
 
@@ -200,6 +203,8 @@ const Header = props => {
                     }
                     break;
 
+                case '/estimate': 
+                    props.setValue(5);
                 default: 
                     break;
             }
@@ -232,7 +237,10 @@ const Header = props => {
             <Button 
                 variant="contained" 
                 color="secondary"
-                className={classes.button}>
+                className={classes.button}
+                component={Link}
+                to="/estimate"
+                onClick={() => props.setValue(5)}>
                 Free Estimate
             </Button>
 
