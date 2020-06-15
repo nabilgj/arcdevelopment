@@ -66,6 +66,16 @@ const theme = createMuiTheme({
             borderRadius: 50,
             fontFamily: "Roboto",
             fontWeight: "bold",
+        },
+        body1: {
+            fontSize: '1.25rem',
+            color: arcGrey,
+            fontWeight: 300 
+        },
+        caption: {
+            fontSize: '1rem',
+            fontWeight: 300,
+            color: arcGrey
         }
     }
 });

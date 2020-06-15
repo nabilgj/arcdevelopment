@@ -66,11 +66,6 @@ const useStyles = makeStyles(theme => ({
         height: 45,
         width: 145
     },
-    specialText: {
-        fontFamily: 'Pacifico',
-        color: theme.palette.common.SeaGreen,
-
-    },
     learnButton: {
         ...theme.typography.learnButton,
         fontSize: '0.8rem',
@@ -79,6 +74,11 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down('sm')]: {
             marginBottom: '2em'
         }
+    },
+    specialText: {
+        fontFamily: 'Pacifico',
+        color: theme.palette.common.SeaGreen,
+
     },
     subtitle: {
         marginBottom: '1em'

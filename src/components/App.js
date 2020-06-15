@@ -9,6 +9,12 @@ import theme from './ui/theme';
 import Header from './ui/Header';
 import Footer from './ui/footer';
 import LandingPage from './LandingPage';
+import Services from './Services';
+import CustomSoftware from './CustomSoftware';
+import MobileApps from './MobileApps';
+import Websites from './Websites';
+import Revolution from './Revolution';
+import About from './About';
 
 const App = () => {
 
@@ -40,34 +46,71 @@ const App = () => {
               />} />
 
             <Route 
-              exact 
+              exact
               path="/services" 
-              component={() => <div> Services </div>} />
-            
+              render={props => <Services 
+                {...props}
+                value={value} 
+                setValue={setValue}
+                selectedIndex={selectedIndex}
+                setSelectedIndex={setSelectedIndex}
+              />} />
+
             <Route 
               exact
               path="/customsoftware" 
-              component={() => <div>Custom Software</div>} />
+              render={props => <CustomSoftware 
+                {...props}
+                value={value} 
+                setValue={setValue}
+                selectedIndex={selectedIndex}
+                setSelectedIndex={setSelectedIndex}
+              />} />
+
             <Route 
               exact
               path="/mobileapps" 
-              component={() => <div>Mobile Apps</div>} />
+              render={props => <MobileApps 
+                {...props}
+                value={value} 
+                setValue={setValue}
+                selectedIndex={selectedIndex}
+                setSelectedIndex={setSelectedIndex}
+              />} />
 
             <Route 
               exact
               path="/websites" 
-              component={() => <div>Websites</div>} />
+              render={props => <Websites 
+                {...props}
+                value={value} 
+                setValue={setValue}
+                selectedIndex={selectedIndex}
+                setSelectedIndex={setSelectedIndex}
+              />} />
 
-            
             <Route 
               exact
               path="/revolution" 
-              component={() => <div>The Revolution</div>} />
+              render={props => <Revolution 
+                {...props}
+                value={value} 
+                setValue={setValue}
+                selectedIndex={selectedIndex}
+                setSelectedIndex={setSelectedIndex}
+              />} />
 
             <Route 
               exact
               path="/about" 
-              component={() => <div>About Us</div>} />
+              render={props => <About 
+                {...props}
+                value={value} 
+                setValue={setValue}
+                selectedIndex={selectedIndex}
+                setSelectedIndex={setSelectedIndex}
+              />} />
+
 
             <Route 
               exact
