@@ -64,9 +64,13 @@ const CallToAction = (props) => {
             justify={matchesSM ? 'center' : 'space-between'}
             className={classes.background}
             direction={matchesSM ? 'column' : 'row'}>
+            
             <Grid 
                 item 
-                style={{marginLeft: matchesSM ? 0 : '5em', textAlign: matchesSM ? 'center' : 'inherit'}}>
+                style={{
+                        marginLeft: matchesSM ? 0 : '5em', 
+                        textAlign: matchesSM ? 'center' : 'inherit'}}>
+                
                 <Grid container direction="column">
                     <Grid item>
 
@@ -94,6 +98,7 @@ const CallToAction = (props) => {
                         </Grid>
                     </Grid>
                 </Grid>
+
             </Grid>
 
             <Grid item>
