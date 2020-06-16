@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -9,6 +10,8 @@ import TextField from '@material-ui/core/TextField';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import ButtonArrow from './ui/ButtonArrow';
 
@@ -98,6 +101,10 @@ const Contact = props => {
 
     const [open, setOpen] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+
+    const [alert, setAlert] = useState({open: false, message: "", backgroundColor: ""})
+
     const onChange = event => {
         let valid;
 
@@ -127,7 +134,44 @@ const Contact = props => {
             default: 
                 break;
         }
-    }
+    };
+
+    const onConfirm = () => {
+        setLoading(true);
+        axios.get('https://us-central1-material-ui-course-7efd2.cloudfunctions.net/sendMail', {
+            params: {
+                name: name,
+                email: email,
+                phone: phone,
+                message: message
+            }
+        })
+            .then(response => {
+                console.log(response);
+                setLoading(false);
+                setOpen(false);
+                setName("");
+                setEmail("");
+                setPhone("");
+                setMessage("");
+                setAlert({ open: true, message: "Message sent successfuly", color: "#4bb543"})
+            })
+            .catch(err => {
+                console.log(err);
+                setLoading(false);
+                setAlert({open: true, message: "Somethign went wrong", color: "#ff3232"})
+            });
+    };
+
+    const buttonContents = (
+        <React.Fragment>
+            Send Message
+            <img 
+                src={airplane} 
+                alt="paper airplane" 
+                style={{ marginLeft: '1em'}} />
+        </React.Fragment>
+    );
 
 
     return (
@@ -266,8 +310,8 @@ const Contact = props => {
                                 variant="contained" 
                                 className={classes.sendButton}
                                 onClick={() => setOpen(true)}>
-                                Send Message
-                                <img src={airplane} alt="paper airplane" style={{ marginLeft: '1em'}}/>
+
+                                {buttonContents}
                             </Button>
                         </Grid>
                     </Grid>
@@ -355,23 +399,31 @@ const Contact = props => {
 
                         <Grid item>
                             <Button 
-                                // disabled={
-                                //     name.length === 0 || 
-                                //     message.length === 0 || 
-                                //     emailHelper.length !== 0 || 
-                                //     phoneHelper.length !== 0 }
+                                disabled={
+                                    name.length === 0 || 
+                                    message.length === 0 || 
+                                    emailHelper.length !== 0 || 
+                                    phoneHelper.length !== 0 }
 
                                 variant="contained" 
                                 className={classes.sendButton}
-                                onClick={() => setOpen(true)}>
-                                Send Message
-                                <img src={airplane} alt="paper airplane" style={{ marginLeft: '1em'}}/>
+                                onClick={onConfirm}>
+
+                                {loading ? <CircularProgress size={30} /> : buttonContents}
                             </Button>
                         </Grid>
 
                     </Grid>
                 </DialogContent>
             </Dialog>
+
+            <Snackbar 
+                open={alert.open}
+                message={alert.message}
+                ContentProps={{ style: {backgroundColor: alert.backgroundColor}}}
+                anchorOrigin={{ vertical: "top", horizontal: "center"}}
+                onClose={() => setAlert({...alert, open: false})}
+                autoHideDuration={3000} />
 
 
             {/* call to action */}
